@@ -12,7 +12,7 @@ function LeadGeneration() {
         </Link>
         <div className="grid md:grid-cols-2 gap-12 items-center py-12">
           <div>
-            <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-600 mb-6">
+            <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-600 mb-6">
               Smarter Leads. Higher Conversions.
             </h1>
             <p className="text-xl text-gray-300 mb-8">

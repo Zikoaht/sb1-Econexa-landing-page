@@ -1,0 +1,4 @@
+[build]
+  base = "SB1-ECONEXA-LANDING-PAGE"
+  command = "npm run build"
+  publish = "dist"

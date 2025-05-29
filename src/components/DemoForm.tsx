@@ -46,7 +46,7 @@ const DemoForm: React.FC = () => {
     setIsSubmitting(true);
     
     try {
-      const response = await fetch('https://script.google.com/macros/s/AKfycbz9_6otEQPadZkKa6vwQuIOfC5j_K2hMuy0ZzoVgk8Hy0aEk_ShRu6HaA9L_cX4JZ-Z4Q/exec', {
+      const response = await fetch('https://script.google.com/macros/s/AKfycbyPAQHDLPmQuHx-iPY1ecIIozHsSq4fn94RjhpF9VTu3HUxNduakbnGm-LfpGM0TnLhiw/exec', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
