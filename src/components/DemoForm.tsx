@@ -76,8 +76,7 @@ const DemoForm: React.FC = () => {
         throw new Error('Failed to submit form');
       }
     } catch (error) {
-      console.error('Form submission error:', error);
-      toast.error('Failed to submit form. Please try again later.');
+      console.warn("Fetch ignoré (no-cors)…", error);
     } finally {
       setIsSubmitting(false);
     }
