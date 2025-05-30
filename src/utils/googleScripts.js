@@ -3,6 +3,7 @@ export async function submitDemoForm(formData) {
 
   const response = await fetch(url, {
     method: "POST",
+    mode: 'no-cors', 
     headers: {
       "Content-Type": "application/json",
     },
