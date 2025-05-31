@@ -1,5 +1,5 @@
 export async function submitDemoForm(formData) {
-  const url = "https://script.google.com/macros/s/AKfycbyPAQHDLPmQuHx-iPY1ecIIozHsSq4fn94RjhpF9VTu3HUxNduakbnGm-LfpGM0TnLhiw/exec";
+  const url = "https://script.google.com/macros/s/AKfycby_jj_exos5DhpucIcOHrKv-IEiEM1PuZgkQF2vntGx3geMh1QtIk91xZ47Sq5xWztD/exec";
 
   const response = await fetch(url, {
     method: "POST",
