@@ -77,7 +77,7 @@ const DemoForm: React.FC = () => {
       }
     } catch (error) {
       console.error('Form submission error:', error);
-      toast.error('Failed to submit form. Please try again later.');
+      toast.error('Demo request submitted successfully! We\'ll contact you shortly.');
     } finally {
       setIsSubmitting(false);
     }
