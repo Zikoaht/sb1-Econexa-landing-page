@@ -20,19 +20,19 @@ const DemoForm: React.FC = () => {
 
   const validateForm = (): boolean => {
     if (!formData.fullName.trim()) {
-      toast.error('Veuillez entrer votre nom complet');
+      toast.error('Please enter your full name');
       return false;
     }
     if (!formData.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-      toast.error('Veuillez entrer une adresse e-mail valide');
+      toast.error('Please enter a valid email address');
       return false;
     }
     if (!formData.demoDateTime) {
-      toast.error('Veuillez sélectionner une date/heure');
+      toast.error('Please select your preferred demo date and time');
       return false;
     }
     if (!formData.requirements.trim()) {
-      toast.error('Veuillez décrire vos besoins');
+      toast.error('Please describe your demo requirements');
       return false;
     }
     return true;
@@ -40,33 +40,43 @@ const DemoForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
     if (!validateForm()) return;
+    
     setIsSubmitting(true);
-
-    // Construction du body en URL-encoded
-    const params = new URLSearchParams();
-    params.append('fullName', formData.fullName);
-    params.append('email', formData.email);
-    params.append('demoDateTime', formData.demoDateTime);
-    params.append('requirements', formData.requirements);
-    params.append('timestamp', format(new Date(), 'yyyy-MM-dd HH:mm:ss'));
-
+    
     try {
-      await fetch('https://script.google.com/macros/s/AKfycby_jj_exos5DhpucIcOHrKv-IEiEM1PuZgkQF2vntGx3geMh1QtIk91xZ47Sq5xWztD/exec', {
+      const response = await fetch('https://script.google.com/macros/s/AKfycbxFyW31OLZy0Bp7nCImJVdfnzDl7PEuHr4AD46976zfzQaxqr1UKiu3g7S8SmtXZkrAWg/exec', {
         method: 'POST',
-        mode: 'no-cors',   // nécessaire pour éviter le blocage CORS
-        // Ne PAS préciser 'Content-Type' ici : le navigateur le mettra en application/x-www-form-urlencoded
-        body: params       // envoie les données au format clé=valeur&clé2=valeur2
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          timestamp: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
+          ...formData
+        }),
       });
 
-      // On considère le succès si aucune exception n’a été levée
-      toast.success("Merci ! Votre demande a été envoyée.");
-      setFormData({ fullName: '', email: '', demoDateTime: '', requirements: '' });
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
 
+      const data = await response.json();
+
+      if (data.status === 'success') {
+        toast.success('Demo request submitted successfully! We\'ll contact you shortly.');
+        setFormData({
+          fullName: '',
+          email: '',
+          demoDateTime: '',
+          requirements: ''
+        });
+      } else {
+        throw new Error('Failed to submit form');
+      }
     } catch (error) {
-      // En no-cors, on ne récupère jamais d'erreur précise, on se contente de remercier
-      console.warn("Fetch no-cors bloqué ou silencieux", error);
-      toast.success("Merci ! Votre demande a été envoyée.");
+      console.error('Form submission error:', error);
+      toast.error('Failed to submit form. Please try again later.');
     } finally {
       setIsSubmitting(false);
     }
@@ -91,6 +101,7 @@ const DemoForm: React.FC = () => {
             required
           />
         </div>
+
         <div>
           <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
             Email Address *
@@ -104,6 +115,7 @@ const DemoForm: React.FC = () => {
             required
           />
         </div>
+
         <div>
           <label htmlFor="demoDateTime" className="block text-sm font-medium text-gray-300 mb-2">
             Preferred Demo Date/Time *
@@ -118,6 +130,7 @@ const DemoForm: React.FC = () => {
             required
           />
         </div>
+
         <div>
           <label htmlFor="requirements" className="block text-sm font-medium text-gray-300 mb-2">
             Demo Requirements *
@@ -129,17 +142,19 @@ const DemoForm: React.FC = () => {
             rows={4}
             className="w-full bg-black/50 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
             required
-          />
+          ></textarea>
         </div>
+
         <div className="text-sm text-gray-400">
           By submitting this form, you agree to our privacy policy and consent to the processing of your personal data.
         </div>
+
         <button
           type="submit"
           disabled={isSubmitting}
           className="w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold py-3 rounded-lg hover:opacity-90 transition disabled:opacity-50"
         >
-          {isSubmitting ? 'Submitting...Received!' : 'Book Demo'}
+          {isSubmitting ? 'Submitting...' : 'Book Demo'}
         </button>
       </form>
     </div>
