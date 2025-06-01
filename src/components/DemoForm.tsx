@@ -48,6 +48,7 @@ const DemoForm: React.FC = () => {
     try {
       const response = await fetch('https://script.google.com/macros/s/AKfycbxFyW31OLZy0Bp7nCImJVdfnzDl7PEuHr4AD46976zfzQaxqr1UKiu3g7S8SmtXZkrAWg/exec', {
         method: 'POST',
+        mode: 'no-cors', 
         headers: {
           'Content-Type': 'application/json',
         },
