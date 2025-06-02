@@ -35,7 +35,7 @@ function Contact() {
               <div className="space-y-4">
                 <div className="flex items-center">
                   <Mail className="w-5 h-5 text-purple-500 mr-3" />
-                  <span>contact@echonexa.com</span>
+                  <span>contact@econexa.ca</span>
                 </div>
                 <div className="flex items-center">
                   <MessageSquare className="w-5 h-5 text-purple-500 mr-3" />
